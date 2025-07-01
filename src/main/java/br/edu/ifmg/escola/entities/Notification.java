@@ -7,8 +7,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -16,26 +14,21 @@ import java.util.List;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 
 @Entity
-@Table(name = "tb_offer")
-public class Offer {
-
+@Table(name = "tb_notification")
+public class Notification {
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    private String edition;
+    private String text;
+    private String route;
+    private boolean read;
 
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant startMoment;
-    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-    private Instant endMoment;
+    private Instant moment;
 
     @ManyToOne
-    @JoinColumn(name = "course_id")
-    private Course course;
-
-    @OneToMany
-    @JoinColumn(name = "offer")
-    private List<Resource> resources = new ArrayList<>();
+    @JoinColumn(name = "user_id")
+    private User user;
 }
